@@ -1,6 +1,6 @@
 {% set name = "spacy" %}
-{% set version = "2.2.1" %}
-{% set sha256sum = "b65fb11388212519bb0880d9ae3a1eb760e5956da40b329d014193887a1b03a9" %}
+{% set version = "2.3.4" %}
+{% set sha256sum = "a5c8805759114aac3a1db1b20f42af1124da5315be903ccb4c472cc8452393fb" %}
 
 package:
   name: {{ name }}
@@ -11,20 +11,9 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256sum }}
 
-
 build:
   number: 1
-  script:
-    # For the numpy header replacement here, see:
-    #
-    #    https://github.com/explosion/spaCy/issues/1592#issuecomment-360889011
-    #
-    #    This is only strictly needed for ppc64le, but do it even for x86 to
-    #    ensure we build against common headers (that match our numpy spec)
-    #    on both platforms.
-    - rm -r {{ SRC_DIR }}/include/numpy
-    - ln -s {{ SP_DIR }}/numpy/core/include/numpy {{ SRC_DIR }}/include/numpy
-    - {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
   build:
@@ -53,6 +42,7 @@ requirements:
     - wasabi {{ wasabi }} 
     - srsly {{ srsly }}
     - jsonschema
+    - catalogue {{ catalogue }}
 
 test:
   requires:
