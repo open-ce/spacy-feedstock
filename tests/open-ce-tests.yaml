@@ -5,4 +5,4 @@ tests:
   - name: Run spaCy tests
     command: |
         SPACY_LOCATION=$(python -c "import os; import spacy; print(os.path.dirname(spacy.__file__))")
-        python -m pytest -k "not test_matcher and not test_issue3328" $SPACY_LOCATION
+        python -m pytest -k "not test_matcher and not test_issue3328 and not test_issue6177" $SPACY_LOCATION
