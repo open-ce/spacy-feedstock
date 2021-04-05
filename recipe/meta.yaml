@@ -1,6 +1,6 @@
 {% set name = "spacy" %}
-{% set version = "2.3.4" %}
-{% set sha256sum = "a5c8805759114aac3a1db1b20f42af1124da5315be903ccb4c472cc8452393fb" %}
+{% set version = "3.0.5" %}
+{% set sha256sum = "9f7a09fbad53aac2a3cb7696a902de62b94575a15d249dd5e26a98049328060e" %}
 
 package:
   name: {{ name }}
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 2
+  number: 1 
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
@@ -22,6 +22,7 @@ requirements:
   host:
     - pip  {{ pip }}
     - python  {{ python }}
+    - setuptools {{ setuptools }}     
     - numpy {{ numpy }} 
     - wheel {{ wheel }} 
     - cython {{ cython }}
@@ -29,27 +30,40 @@ requirements:
     - preshed {{ preshed }}
     - murmurhash {{ murmurhash }}
     - thinc {{ thinc }} 
+    - cython-blis {{ cython_blis }}
+  
   run:
     - python {{ python }}
-    - {{ pin_compatible('numpy', min_pin='1.15.x') }}
+    - {{ pin_compatible('numpy') }}
+    - spacy-legacy
     - murmurhash {{ murmurhash }}
     - cymem {{ cymem }} 
     - preshed {{ preshed }} 
     - thinc {{ thinc }}
     - cython-blis {{ cython_blis }}
-    - plac {{ plac }}
     - requests {{ requests }} 
     - wasabi {{ wasabi }} 
     - srsly {{ srsly }}
-    - jsonschema
     - catalogue {{ catalogue }}
-
+    - typer {{ typer }}
+    - tqdm {{ tqdm }}
+    - pathy {{ pathy }}
+    - pydantic {{ pydantic }}
+    - setuptools {{ setuptools }}
+    - packaging >=20.0
+    - importlib_metadata >=0.20  # [py<=37]
+    - typing_extensions {{ typing_extensions }}  # [py<38] 
+    - jinja2
 test:
   requires:
     - pytest
+    - pytest-timeout
     - mock
+    - hypothesis
   imports:
     - spacy
+  commands:
+    - python -m pytest --tb=native --pyargs {{ name }}
 
 about:
   home: https://spacy.io/
