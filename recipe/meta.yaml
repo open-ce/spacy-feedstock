@@ -35,7 +35,7 @@ requirements:
   run:
     - python {{ python }}
     - {{ pin_compatible('numpy') }}
-    - spacy-legacy
+    - spacy-legacy {{ spacy_legacy }}
     - murmurhash {{ murmurhash }}
     - cymem {{ cymem }} 
     - preshed {{ preshed }} 
