@@ -1,7 +1,7 @@
 tests:
   - name: Setup spaCy Tests
     command: |
-        conda install -y pytest>=4.6.5 pytest-timeout mock flake8
+        conda install -y pytest>=4.6.5 pytest-timeout mock hypothesis
   - name: Run spaCy tests
     command: |
         SPACY_LOCATION=$(python -c "import os; import spacy; print(os.path.dirname(spacy.__file__))")
