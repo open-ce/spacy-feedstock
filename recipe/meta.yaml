@@ -31,6 +31,7 @@ requirements:
     - murmurhash {{ murmurhash }}
     - thinc {{ thinc }} 
     - cython-blis {{ cython_blis }}
+    - pydantic {{ pydantic }}
   
   run:
     - python {{ python }}
