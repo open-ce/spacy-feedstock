@@ -12,13 +12,15 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 2
+  number: 3
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
   build:
     - pip {{ pip }}
     - {{ compiler('cxx') }}
+    # Use pins to control cos6/cos7 match
+    - libstdcxx-ng  {{ libstdcxx }}
   host:
     - pip  {{ pip }}
     - python  {{ python }}
