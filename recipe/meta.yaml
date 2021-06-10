@@ -32,6 +32,9 @@ requirements:
     - preshed {{ preshed }}
     - murmurhash {{ murmurhash }}
     - thinc {{ thinc }} 
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python {{ python }}
     - {{ pin_compatible('numpy', min_pin='1.15.x') }}
@@ -51,6 +54,9 @@ test:
   requires:
     - pytest
     - mock
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   imports:
     - spacy
 
