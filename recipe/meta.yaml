@@ -52,8 +52,8 @@ requirements:
     - jsonschema
     - catalogue {{ catalogue }}
     # Use pins to control cos6/cos7 match
-    - libgcc-ng =={{ libgcc }}
-    - libstdcxx-ng =={{ libstdcxx }}
+    - libgcc-ng {{ libgcc }}
+    - libstdcxx-ng {{ libstdcxx }}
 
 test:
   requires:
