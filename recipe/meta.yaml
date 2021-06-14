@@ -12,13 +12,18 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 2
+  number: 3
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
-
+  ignore_run_exports:
+    - libgcc-ng
+    - libstdcxx-ng
 requirements:
   build:
     - pip {{ pip }}
     - {{ compiler('cxx') }}
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   host:
     - pip  {{ pip }}
     - python  {{ python }}
@@ -29,6 +34,9 @@ requirements:
     - preshed {{ preshed }}
     - murmurhash {{ murmurhash }}
     - thinc {{ thinc }} 
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python {{ python }}
     - {{ pin_compatible('numpy', min_pin='1.15.x') }}
@@ -43,11 +51,17 @@ requirements:
     - srsly {{ srsly }}
     - jsonschema
     - catalogue {{ catalogue }}
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng {{ libgcc }}
+    - libstdcxx-ng {{ libstdcxx }}
 
 test:
   requires:
     - pytest
     - mock
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   imports:
     - spacy
 
