@@ -14,10 +14,15 @@ source:
 build:
   number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
-
+  ignore_run_exports:
+    - libgcc-ng
+    - libstdcxx-ng
 requirements:
   build:
     - {{ compiler('cxx') }}
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   host:
     - pip  {{ pip }}
     - python  {{ python }}
@@ -31,7 +36,9 @@ requirements:
     - thinc {{ thinc }} 
     - cython-blis {{ cython_blis }}
     - pydantic {{ pydantic }}
-  
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python {{ python }}
     - {{ pin_compatible('numpy') }}
@@ -53,6 +60,9 @@ requirements:
     - packaging >=20.0
     - typing_extensions {{ typing_extensions }}  # [py<38] 
     - jinja2
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng {{ libgcc }}
+    - libstdcxx-ng {{ libstdcxx }}
 
 test:
   requires:
@@ -61,6 +71,9 @@ test:
     - mock
     - importlib_metadata ==2.0.0
     - hypothesis
+    # Use pins to control cos6/cos7 match
+    - libgcc-ng  {{ libgcc }}
+    - libstdcxx-ng  {{ libstdcxx }}
   imports:
     - spacy
   commands:
