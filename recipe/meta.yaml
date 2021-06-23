@@ -1,6 +1,6 @@
 {% set name = "spacy" %}
-{% set version = "2.3.4" %}
-{% set sha256sum = "a5c8805759114aac3a1db1b20f42af1124da5315be903ccb4c472cc8452393fb" %}
+{% set version = "3.0.6" %}
+{% set sha256sum = "5628ab89f1f568099c880b12a9c37f4ece29ab89260660cfdf728c02711879c5" %}
 
 package:
   name: {{ name }}
@@ -12,14 +12,13 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 3
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   ignore_run_exports:
     - libgcc-ng
     - libstdcxx-ng
 requirements:
   build:
-    - pip {{ pip }}
     - {{ compiler('cxx') }}
     # Use pins to control cos6/cos7 match
     - libgcc-ng  {{ libgcc }}
@@ -27,6 +26,7 @@ requirements:
   host:
     - pip  {{ pip }}
     - python  {{ python }}
+    - setuptools {{ setuptools }}     
     - numpy {{ numpy }} 
     - wheel {{ wheel }} 
     - cython {{ cython }}
@@ -34,23 +34,32 @@ requirements:
     - preshed {{ preshed }}
     - murmurhash {{ murmurhash }}
     - thinc {{ thinc }} 
+    - cython-blis {{ cython_blis }}
+    - pydantic {{ pydantic }}
     # Use pins to control cos6/cos7 match
     - libgcc-ng  {{ libgcc }}
     - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python {{ python }}
-    - {{ pin_compatible('numpy', min_pin='1.15.x') }}
+    - numpy {{ numpy }}
+    - spacy-legacy {{ spacy_legacy }}
     - murmurhash {{ murmurhash }}
     - cymem {{ cymem }} 
     - preshed {{ preshed }} 
     - thinc {{ thinc }}
     - cython-blis {{ cython_blis }}
-    - plac {{ plac }}
     - requests {{ requests }} 
     - wasabi {{ wasabi }} 
     - srsly {{ srsly }}
-    - jsonschema
     - catalogue {{ catalogue }}
+    - typer {{ typer }}
+    - tqdm {{ tqdm }}
+    - pathy {{ pathy }}
+    - pydantic {{ pydantic }}
+    - setuptools {{ setuptools }}
+    - packaging >=20.0
+    - typing_extensions {{ typing_extensions }}  # [py<38] 
+    - jinja2
     # Use pins to control cos6/cos7 match
     - libgcc-ng {{ libgcc }}
     - libstdcxx-ng {{ libstdcxx }}
@@ -58,12 +67,17 @@ requirements:
 test:
   requires:
     - pytest
+    - pytest-timeout
     - mock
+    - importlib_metadata ==2.0.0
+    - hypothesis
     # Use pins to control cos6/cos7 match
     - libgcc-ng  {{ libgcc }}
     - libstdcxx-ng  {{ libstdcxx }}
   imports:
     - spacy
+  commands:
+    - python -m pytest --tb=native --pyargs {{ name }}
 
 about:
   home: https://spacy.io/
