@@ -41,7 +41,7 @@ requirements:
     - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python {{ python }}
-    - {{ pin_compatible('numpy') }}
+    - numpy {{ numpy }}
     - spacy-legacy {{ spacy_legacy }}
     - murmurhash {{ murmurhash }}
     - cymem {{ cymem }} 
