@@ -1,6 +1,6 @@
 {% set name = "spacy" %}
-{% set version = "3.0.6" %}
-{% set sha256sum = "5628ab89f1f568099c880b12a9c37f4ece29ab89260660cfdf728c02711879c5" %}
+{% set version = "3.1.2" %}
+{% set sha256sum = "4bc9faddc9ed4f042ad424af4ff5cb67d193ce4e22ad19d59ff1a14715f113b5" %}
 
 package:
   name: {{ name }}
@@ -12,15 +12,12 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 2
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
   build:
     - {{ compiler('cxx') }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   host:
     - pip  {{ pip }}
     - python  {{ python }}
@@ -34,9 +31,6 @@ requirements:
     - thinc {{ thinc }} 
     - cython-blis {{ cython_blis }}
     - pydantic {{ pydantic }}
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   run:
     - python {{ python }}
     - numpy {{ numpy }}
