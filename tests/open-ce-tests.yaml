@@ -5,4 +5,4 @@ tests:
   - name: Run spaCy tests
     command: |
         SPACY_LOCATION=$(python -c "import os; import spacy; print(os.path.dirname(spacy.__file__))")
-        python -m pytest $SPACY_LOCATION
+        python -m pytest -k "not test_get_third_party_dependancies" $SPACY_LOCATION
