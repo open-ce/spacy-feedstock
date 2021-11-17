@@ -52,20 +52,19 @@ requirements:
     - packaging >=20.0
     - typing_extensions {{ typing_extensions }}  # [py<38] 
     - jinja2
-    - langcodes {{ langcodes }}
+    - langcodes
 
 test:
   requires:
     - pytest
     - pytest-timeout
     - mock
-    - importlib_metadata ==2.0.0
     - hypothesis
   imports:
     - spacy
   commands:
-    - python -m pytest --tb=native -k "not test_get_third_party_dependancies" --pyargs {{ name }} 
-
+    - python -m pytest --tb=native -k "not test_get_third_party_dependencies" --pyargs {{ name }} 
+   
 about:
   home: https://spacy.io/
   license: MIT
