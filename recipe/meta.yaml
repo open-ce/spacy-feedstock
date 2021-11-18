@@ -63,8 +63,8 @@ test:
   imports:
     - spacy
   commands:
-    - python -m pytest --tb=native -k "not test_get_third_party_dependencies" --pyargs {{ name }} 
-   
+    - python -m pytest --tb=native -k "not test_get_third_party_dependencies" --pyargs {{ name }}
+    
 about:
   home: https://spacy.io/
   license: MIT
