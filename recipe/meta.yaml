@@ -14,9 +14,11 @@ source:
 build:
   number: 2
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv      #[ppc_arch != 'p10']
-  script: CC=$GCC_10_HOME/bin/gcc {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv #[ppc_arch == 'p10']
+  script: CC=$GCC_10_HOME/bin/gcc CXX=$GCC_10_HOME/bin/g++ {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv #[ppc_arch == 'p10']
+{% if ppc_arch == 'p10' %}
   script_env:
     - GCC_10_HOME
+{% endif %}
 
 requirements:
   build:
