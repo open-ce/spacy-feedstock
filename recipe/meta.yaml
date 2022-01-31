@@ -12,12 +12,15 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 1
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  number: 2
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv      #[ppc_arch != 'p10']
+  script: CC=$GCC_10_HOME/bin/gcc {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv #[ppc_arch == 'p10']
+  script_env:
+    - GCC_10_HOME
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}                   #[ppc_arch != 'p10']
   host:
     - pip  {{ pip }}
     - python  {{ python }}
