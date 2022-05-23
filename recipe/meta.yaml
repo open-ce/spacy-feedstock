@@ -1,6 +1,6 @@
 {% set name = "spacy" %}
-{% set version = "3.2.1" %}
-{% set sha256sum = "f6ebac511627740a8ca2b117b91ef5515c8f0b2fb117a69ebe01d010dd4fc53c" %}
+{% set version = "3.3.0" %}
+{% set sha256sum = "c49d50fbe3715adc5741419367b39a468d2556648422f10b6fc4edf38eae2cb3" %}
 
 package:
   name: {{ name }}
@@ -10,6 +10,7 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256sum }}
+  patches: 0001-skip-beam-density-test.patch
 
 build:
   number: 1
@@ -18,6 +19,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - cython
   host:
     - pip  {{ pip }}
     - python  {{ python }}
@@ -64,7 +66,7 @@ test:
   imports:
     - spacy
   commands:
-    - python -m pytest --tb=native -k "not test_get_third_party_dependencies" --pyargs {{ name }}
+    - python -m pytest --tb=native -k "not test_entity_linker" --pyargs {{ name }}
     
 about:
   home: https://spacy.io/
