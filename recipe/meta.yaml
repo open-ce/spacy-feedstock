@@ -1,6 +1,6 @@
 {% set name = "spacy" %}
-{% set version = "3.2.1" %}
-{% set sha256sum = "f6ebac511627740a8ca2b117b91ef5515c8f0b2fb117a69ebe01d010dd4fc53c" %}
+{% set version = "3.3.1" %}
+{% set sha256sum = "7f87dbdb104d851ae6ba5fd3a76a2e14e22e048135903e98baf08571a3aa81c0" %}
 
 package:
   name: {{ name }}
@@ -18,6 +18,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - cython
   host:
     - pip  {{ pip }}
     - python  {{ python }}
@@ -64,7 +65,7 @@ test:
   imports:
     - spacy
   commands:
-    - python -m pytest --tb=native -k "not test_get_third_party_dependencies" --pyargs {{ name }}
+    - python -m pytest --tb=native -k "not test_entity_linker" --pyargs {{ name }}
     
 about:
   home: https://spacy.io/
