@@ -59,6 +59,7 @@ requirements:
 test:
   requires:
     - pytest
+    - click {{ click }}
     - pytest-timeout
     - mock
     - hypothesis
